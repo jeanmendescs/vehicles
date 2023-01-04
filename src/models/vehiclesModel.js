@@ -2,25 +2,16 @@ const { ObjectId } = require("mongodb");
 
 const { getDB } = require("./connection");
 
-const deleteVehicle = async (req) => {
-  const { id } = req.params;
+const create = async (vehicle) =>
+  await getDB().collection("cars").insertOne(vehicle);
 
-  return await getDB()
-    .collection("vehicles")
-    .deleteOne({ _id: ObjectId(id) });
-};
-
-const getAllVehicles = async (req) => {
-  const pageSize = req.query.pageSize || 0;
-  const pageNumber = req.query.pageNumber || 10;
-  const search = req.query.search;
-
+const getAll = async ({ pageSize, pageNumber, search }) => {
   const searchQuery = search ? { $text: { $search: search } } : "";
 
   let vehicles = [];
 
   await getDB()
-    .collection("vehicles")
+    .collection("cars")
     .find(searchQuery)
     .sort({ vehicle: 1 })
     .skip(pageSize * pageNumber)
@@ -29,32 +20,26 @@ const getAllVehicles = async (req) => {
   return vehicles;
 };
 
-const getVehicleByIdSchema = async (req) => {
-  const { id } = req.param;
-
-  return await getDB()
-    .collection("vehicles")
+const getById = async (id) =>
+  await getDB()
+    .collection("cars")
     .findOne({ _id: ObjectId(id) });
+
+const remove = async (id) => {
+  return await getDB()
+    .collection("cars")
+    .deleteOne({ _id: ObjectId(id) });
 };
 
-const postVehicle = async (req) => {
-  const vehicle = req.body;
-  return await getDB().collection("vehicles").insertOne(vehicle);
-};
-
-const updateVehicle = async (req) => {
-  const newVehicle = req.body;
-  const { id } = req.params;
-
-  return getDB()
-    .collection("vehicles")
+const update = async ({ newVehicle, id }) =>
+  getDB()
+    .collection("cars")
     .updateOne({ _id: ObjectId(id) }, { $set: newVehicle });
-};
 
 module.exports = {
-  deleteVehicle,
-  getAllVehicles,
-  getVehicleByIdSchema,
-  postVehicle,
-  updateVehicle,
+  create,
+  getAll,
+  getById,
+  remove,
+  update,
 };
