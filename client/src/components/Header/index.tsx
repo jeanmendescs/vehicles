@@ -5,7 +5,7 @@ import { ReactSVG } from "react-svg";
 import DropIcon from "../../assets/icons/drop.svg";
 
 interface IHeader {
-  onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function Header({ onSearch }: IHeader) {
@@ -23,7 +23,7 @@ function Header({ onSearch }: IHeader) {
         <Col span={12} className="search-column">
           <Input
             size="large"
-            onChange={onSearch}
+            onChange={(e) => onSearch(e.target.value)}
             placeholder="SEARCH for a vehicle"
             className="search-column__search"
           />

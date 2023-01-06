@@ -1,3 +1,4 @@
+import { Col, Row } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -8,6 +9,8 @@ import { IVehicle } from "../../types/interfaces";
 
 function Vehicles() {
   const [vehicles, setVehicles] = useState<IVehicle[]>([]);
+  const [selectedVehicle, setSelectedVehicle] = useState(0);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     axios
@@ -17,13 +20,17 @@ function Vehicles() {
   }, []);
 
   return (
-    <div>
-      <Header onSearch={() => null} />
+    <>
+      <Header onSearch={setSearch} />
       <div className="vehicles">
         <AddVehicle onClick={() => null} />
-        <VehiclesList list={vehicles} />
+        <Row>
+          <Col span={selectedVehicle ? 12 : 24}>
+            <VehiclesList list={vehicles} />
+          </Col>
+        </Row>
       </div>
-    </div>
+    </>
   );
 }
 
