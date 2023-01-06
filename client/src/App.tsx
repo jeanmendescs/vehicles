@@ -1,15 +1,9 @@
 import Routes from "./routes";
-import Header from "./components/Header";
 
 import "./styles.scss";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <Routes />
-    </>
-  );
+  return <Routes />;
 }
 
 export default App;

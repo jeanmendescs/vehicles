@@ -6,6 +6,120 @@
   box-sizing: inherit;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: 500;
+  color: #444e53;
+}
+
+svg {
+  height: 30px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 body {
   max-height: 100vh;
+  background: #e2e4e1;
+}
+
+.header {
+  &__row {
+    background: rgb(42 49 56);
+  }
+
+  &__icon {
+    height: 50px;
+    width: 50px;
+    margin-left: 15px;
+  }
+
+  .icon-column {
+    display: flex;
+    align-items: center;
+    background-color: #364147;
+
+    &__title {
+      color: #eceeec;
+      font-size: 24px;
+    }
+  }
+
+  .search-column {
+    padding: 0 10px;
+    &__search {
+      background-color: inherit;
+      border: none;
+      color: #8d8f8e;
+
+      &::placeholder {
+        color: #8d8f8e;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 2px #364147;
+      }
+    }
+  }
+}
+
+.vehicles {
+  padding: 40px 30px;
+
+  .ant-card-bordered {
+    border-color: #f0eeee;
+    border-radius: 0;
+  }
+
+  .ant-card-body {
+    padding: 10px 14px 10px 10px;
+  }
+
+  &__card {
+    background: #e2e4e1;
+    margin-top: 10px;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    &--is-ative {
+      background-color: white;
+    }
+
+    &__content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__brand {
+      color: #475156;
+    }
+
+    &__vehicle {
+      color: #418569;
+    }
+
+    &__year {
+      color: #899092;
+    }
+
+    &__tag--is-sold {
+      stroke: #189c6c;
+    }
+  }
+}
+
+.add-vehicle {
+  display: flex;
+  justify-content: space-between;
 }
