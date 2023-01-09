@@ -4,14 +4,17 @@ import { useEffect, useState } from "react";
 
 import AddVehicle from "../../components/AddVehicle";
 import Header from "../../components/Header";
+import Modal from "../../components/Modal";
 import VehicleDescription from "../../components/VehicleDescription";
 import VehiclesList from "../../components/VehiclesList";
 import { IVehicle } from "../../types/interfaces";
+import initialModalConfigState from "./initialState";
 
 function Vehicles() {
   const [vehicles, setVehicles] = useState<IVehicle[]>([]);
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const [search, setSearch] = useState("");
+  const [modalConfig, setModalConfig] = useState(initialModalConfigState);
 
   const getVehicle = () => {
     if (!selectedVehicle) {
@@ -35,7 +38,7 @@ function Vehicles() {
     <>
       <Header onSearch={setSearch} />
       <div className="vehicles">
-        <AddVehicle onClick={() => null} />
+        <AddVehicle onModalOpen={setModalConfig} />
         <Row gutter={30}>
           <Col span={12}>
             <VehiclesList list={vehicles} />
@@ -50,6 +53,11 @@ function Vehicles() {
           </Row>
         )}
       </div>
+      <Modal
+        isOpen={modalConfig.isOpen}
+        title={modalConfig.title}
+        onModalClose={setModalConfig}
+      />
     </>
   );
 }

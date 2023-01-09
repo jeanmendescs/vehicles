@@ -35,7 +35,7 @@ function VehicleDescription({ vehicle }: IVehicleDescription) {
             <ReactSVG className="descriptions__actions__icon" src={EditIcon} />
           }
           size="large"
-          className="descriptions__actions__button"
+          className="button"
         >
           EDIT
         </Button>

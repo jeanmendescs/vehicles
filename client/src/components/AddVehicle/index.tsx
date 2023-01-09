@@ -1,17 +1,23 @@
 import { Divider } from "antd";
 import { ReactSVG } from "react-svg";
 import AddIcon from "../../assets/icons/add.svg";
+import { IAddVehicle } from "../../types/interfaces";
 
-interface IAddVehicle {
-  onClick: () => void;
-}
-
-function AddVehicle({ onClick }: IAddVehicle) {
+function AddVehicle({ onModalOpen }: IAddVehicle) {
   return (
     <div>
       <div className="add-vehicle">
         <h2>VEHICLE</h2>
-        <ReactSVG src={AddIcon} className="add-vehicle__icon" />
+        <ReactSVG
+          onClick={() =>
+            onModalOpen((prev) => ({
+              title: "New Vehicle",
+              isOpen: !prev.isOpen,
+            }))
+          }
+          src={AddIcon}
+          className="add-vehicle__icon"
+        />
       </div>
       <Divider orientation="center" />
     </div>

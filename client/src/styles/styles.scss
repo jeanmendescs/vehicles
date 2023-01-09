@@ -28,6 +28,26 @@ svg {
   }
 }
 
+.button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background-color: $background-color-grey-2;
+  color: $font-color-white;
+  border-radius: 0 !important;
+
+  &--large {
+    width: 150px;
+    justify-content: center;
+  }
+
+  &:hover {
+    color: $font-color-white !important;
+    border-color: $background-color-grey-2 !important;
+    opacity: 0.8;
+  }
+}
+
 body {
   max-height: 100vh;
   background: $background-color-grey-0;
@@ -160,26 +180,62 @@ body {
     justify-content: space-between;
     padding: 0 10px 14px;
 
-    &__button {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      background-color: $background-color-grey-2;
-      color: $font-color-white;
-      border-radius: 0;
-
-      &:hover {
-        color: $font-color-white !important;
-        border-color: $background-color-grey-2 !important;
-        opacity: 0.8;
-      }
-    }
-
     &__icon {
       height: 20px;
 
       svg {
         height: 20px;
+      }
+    }
+  }
+}
+
+.modal {
+  &__input {
+    border-bottom: 1px solid $font-color-grey-0;
+    border-radius: 0;
+    padding: 0;
+    color: $font-color-grey-1;
+
+    &:focus,
+    &:hover {
+      border-bottom: 1px solid $font-color-blue;
+    }
+
+    &::placeholder {
+      color: $font-color-grey-0;
+    }
+
+    &-title {
+      color: $font-color-blue;
+    }
+  }
+
+  &__sold {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__spacing {
+    margin-bottom: 30px;
+  }
+
+  .ant-modal-content {
+    background: $background-color-grey-0;
+    border-radius: 0;
+
+    .ant-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .ant-modal-header {
+      background-color: inherit;
+      margin-bottom: 30px;
+
+      .ant-modal-title {
+        color: $font-color-grey-1;
+        font-size: 24px;
       }
     }
   }
