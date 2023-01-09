@@ -22,7 +22,9 @@ function VehicleCard({ brand, vehicle, year, isActive, isSold }: ICard) {
         <ReactSVG
           src={TagIcon}
           beforeInjection={(svg) =>
-            svg.classList.add(isSold ? "vehicles__card__tag--is-sold" : "")
+            svg.classList.add(
+              isSold ? "vehicles__card__tag--is-sold" : "vehicles__card",
+            )
           }
         />
       </div>
