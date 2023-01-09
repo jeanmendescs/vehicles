@@ -1,0 +1,186 @@
+@import "variables.scss";
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: 500;
+  color: $font-color-grey-1;
+}
+
+svg {
+  height: 30px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+body {
+  max-height: 100vh;
+  background: $background-color-grey-0;
+}
+
+.header {
+  &__row {
+    background: rgb(42 49 56);
+  }
+
+  &__icon {
+    height: 50px;
+    width: 50px;
+    margin-left: 15px;
+  }
+
+  .icon-column {
+    display: flex;
+    align-items: center;
+    background-color: $background-color-grey-2;
+
+    &__title {
+      color: $font-color-white;
+      font-size: 24px;
+    }
+  }
+
+  .search-column {
+    padding: 0 10px;
+    &__search {
+      background-color: inherit;
+      border: none;
+      color: $font-color-grey-0;
+
+      &::placeholder {
+        color: $font-color-grey-0;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 2px $background-color-grey-2;
+      }
+    }
+  }
+}
+
+.vehicles {
+  padding: 40px 30px;
+
+  .ant-card-bordered {
+    border-color: $background-color-grey-1;
+    border-radius: 0;
+  }
+
+  .ant-card-body {
+    padding: 10px 14px 10px 10px;
+  }
+
+  &__card {
+    background: $background-color-grey-0;
+    margin-top: 10px;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    &--is-ative {
+      background-color: white;
+    }
+
+    &__content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__brand {
+      color: $font-color-grey-1;
+    }
+
+    &__vehicle {
+      color: $font-color-green-0;
+    }
+
+    &__year {
+      color: $font-color-grey-0;
+    }
+
+    &__tag--is-sold {
+      stroke: $font-color-green-1;
+    }
+  }
+}
+
+.add-vehicle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.descriptions {
+  background: $background-color-grey-1;
+
+  &__info {
+    padding: 14px 10px 0;
+  }
+
+  &__vehicle {
+    font-size: 20px;
+    color: $font-color-green-0;
+    margin-bottom: 14px;
+  }
+
+  &__brand {
+    font-size: 14px;
+    color: $font-color-grey-0;
+
+    &-title {
+      font-size: 14px;
+      color: $font-color-grey-1;
+    }
+
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px 14px;
+
+    &__button {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background-color: $background-color-grey-2;
+      color: $font-color-white;
+      border-radius: 0;
+
+      &:hover {
+        color: $font-color-white !important;
+        border-color: $background-color-grey-2 !important;
+        opacity: 0.8;
+      }
+    }
+
+    &__icon {
+      height: 20px;
+
+      svg {
+        height: 20px;
+      }
+    }
+  }
+}
