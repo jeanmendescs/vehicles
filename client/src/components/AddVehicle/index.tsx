@@ -11,6 +11,7 @@ function AddVehicle({ onModalOpen }: IAddVehicle) {
         <ReactSVG
           onClick={() =>
             onModalOpen((prev) => ({
+              ...prev,
               title: "New Vehicle",
               isOpen: !prev.isOpen,
             }))

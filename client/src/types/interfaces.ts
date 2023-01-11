@@ -1,5 +1,5 @@
 export interface IVehicle {
-  id: string;
+  _id: string;
   vehicle: string;
   brand: string;
   year: number;
@@ -11,25 +11,27 @@ export interface IVehicle {
 
 export interface ICard
   extends Pick<IVehicle, "brand" | "year" | "vehicle" | "isSold"> {
+  id: string;
   isActive: boolean;
+  onVehicleSelect: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface IModal {
   isOpen: boolean;
-  title: string;
-  onModalClose: React.Dispatch<
-    React.SetStateAction<{
-      isOpen: boolean;
-      title: string;
-    }>
-  >;
+  vehicleId: string;
+  onModalClose: React.Dispatch<React.SetStateAction<IModal>>;
 }
 
 export interface IAddVehicle {
-  onModalOpen: React.Dispatch<
-    React.SetStateAction<{
-      isOpen: boolean;
-      title: string;
-    }>
-  >;
+  onModalOpen: React.Dispatch<React.SetStateAction<IModal>>;
+}
+
+export interface IVehiclesList {
+  list: IVehicle[];
+  onVehicleSelect: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface IVehicleDescription {
+  vehicle: IVehicle | undefined;
+  onEditClick: React.Dispatch<React.SetStateAction<IModal>>;
 }

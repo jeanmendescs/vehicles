@@ -8,19 +8,19 @@ import Modal from "../../components/Modal";
 import VehicleDescription from "../../components/VehicleDescription";
 import VehiclesList from "../../components/VehiclesList";
 import { IVehicle } from "../../types/interfaces";
-import initialModalConfigState from "./initialState";
+import initialModalConfigState from "./initialVehicleState";
 
 function Vehicles() {
   const [vehicles, setVehicles] = useState<IVehicle[]>([]);
-  const [selectedVehicle, setSelectedVehicle] = useState("");
+  const [selectedVehicleId, setSelectedVehicleId] = useState("");
   const [search, setSearch] = useState("");
   const [modalConfig, setModalConfig] = useState(initialModalConfigState);
 
   const getVehicle = () => {
-    if (!selectedVehicle) {
+    if (!selectedVehicleId) {
       return undefined;
     }
-    return vehicles.find((vehicle) => vehicle.id === selectedVehicle);
+    return vehicles.find((vehicle) => vehicle._id === selectedVehicleId);
   };
 
   useEffect(() => {
@@ -28,6 +28,7 @@ function Vehicles() {
       .get("http://localhost:4000/vehicles", {
         params: {
           search,
+          // fields: ["id", "vehicles"] TODO,
         },
       })
       .then(({ data }) => setVehicles(data))
@@ -41,21 +42,24 @@ function Vehicles() {
         <AddVehicle onModalOpen={setModalConfig} />
         <Row gutter={30}>
           <Col span={12}>
-            <VehiclesList list={vehicles} />
+            <VehiclesList
+              onVehicleSelect={setSelectedVehicleId}
+              list={vehicles}
+            />
           </Col>
-          <Col span={12}>
-            <VehicleDescription vehicle={vehicles[0]} />
-          </Col>
+          {!!selectedVehicleId && (
+            <Col span={12}>
+              <VehicleDescription
+                vehicle={getVehicle()}
+                onEditClick={setModalConfig}
+              />
+            </Col>
+          )}
         </Row>
-        {!!selectedVehicle && (
-          <Row>
-            <VehicleDescription vehicle={getVehicle()} />
-          </Row>
-        )}
       </div>
       <Modal
         isOpen={modalConfig.isOpen}
-        title={modalConfig.title}
+        vehicleId={modalConfig.vehicleId}
         onModalClose={setModalConfig}
       />
     </>

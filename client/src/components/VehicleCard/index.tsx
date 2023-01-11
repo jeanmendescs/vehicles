@@ -4,7 +4,15 @@ import { ReactSVG } from "react-svg";
 import TagIcon from "../../assets/icons/tag.svg";
 import { ICard } from "../../types/interfaces";
 
-function VehicleCard({ brand, vehicle, year, isActive, isSold }: ICard) {
+function VehicleCard({
+  id,
+  brand,
+  vehicle,
+  year,
+  isActive,
+  isSold,
+  onVehicleSelect,
+}: ICard) {
   return (
     <Card
       className={
@@ -12,6 +20,14 @@ function VehicleCard({ brand, vehicle, year, isActive, isSold }: ICard) {
       }
       hoverable
       bordered
+      onClick={() =>
+        onVehicleSelect((prev) => {
+          if (prev === id) {
+            return "";
+          }
+          return id;
+        })
+      }
     >
       <div className="vehicles__card__content">
         <div>

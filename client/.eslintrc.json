@@ -33,7 +33,8 @@
     "import/no-extraneous-dependencies": [
       "error",
       { "devDependencies": ["**/*.test.ts", "**/*.test.tsx"] }
-    ]
+    ],
+    "no-underscore-dangle": "off"
   },
   "ignorePatterns": ["**/*.html"]
 }
