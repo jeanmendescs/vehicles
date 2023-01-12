@@ -22,29 +22,32 @@ function Modal({ isOpen, vehicleId, onModalClose }: IModal) {
   const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    if (vehicleId) {
-      setIsLoading(true);
-      axios
-        .get(`http://localhost:4000/vehicles/${vehicleId}`)
-        .then(({ data }) => {
-          form.resetFields();
-          setVehicle(data);
-        })
-        .catch((err) => {
-          messageApi.open({
-            content: err.message,
-            type: "error",
-            className: "modal__message",
-          });
-        })
-        .finally(() => setIsLoading(false));
-    }
-  }, [form, messageApi, vehicleId]);
-
   const handleCloseModal = useCallback(() => {
     onModalClose(initialModalConfigState);
   }, [onModalClose]);
+
+  useEffect(() => {
+    if (!vehicleId && !isOpen) {
+      return;
+    }
+
+    setIsLoading(true);
+    axios
+      .get(`http://localhost:4000/vehicles/${vehicleId}`)
+      .then(({ data }) => {
+        form.setFieldsValue(data);
+        setVehicle(data);
+      })
+      .catch((err) => {
+        messageApi.open({
+          content: err.message,
+          type: "error",
+          className: "modal__message",
+          onClose: handleCloseModal,
+        });
+      })
+      .finally(() => setIsLoading(false));
+  }, [form, handleCloseModal, isOpen, messageApi, vehicleId]);
 
   const handleConfirmButton = useCallback(
     (values: IVehicle) => {
