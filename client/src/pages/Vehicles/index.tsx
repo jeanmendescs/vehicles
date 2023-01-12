@@ -57,11 +57,12 @@ function Vehicles() {
           )}
         </Row>
       </div>
-      <Modal
-        isOpen={modalConfig.isOpen}
-        vehicleId={modalConfig.vehicleId}
-        onModalClose={setModalConfig}
-      />
+      {modalConfig.isOpen && (
+        <Modal
+          vehicleId={modalConfig.vehicleId}
+          onModalClose={setModalConfig}
+        />
+      )}
     </>
   );
 }
