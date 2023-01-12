@@ -192,6 +192,12 @@ body {
 }
 
 .modal {
+  &__message {
+    .ant-message-custom-content {
+      display: flex;
+      align-items: center;
+    }
+  }
   &__input {
     border-bottom: 1px solid $font-color-grey-0;
     border-radius: 0;
@@ -208,7 +214,9 @@ body {
     }
 
     &-title {
-      color: $font-color-blue;
+      .ant-form-item-label label {
+        color: $font-color-blue;
+      }
     }
   }
 

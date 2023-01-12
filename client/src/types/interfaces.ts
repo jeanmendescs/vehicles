@@ -16,14 +16,19 @@ export interface ICard
   onVehicleSelect: React.Dispatch<React.SetStateAction<string>>;
 }
 
+export interface IModalConfig {
+  isOpen: boolean;
+  vehicleId: string;
+}
+
 export interface IModal {
   isOpen: boolean;
   vehicleId: string;
-  onModalClose: React.Dispatch<React.SetStateAction<IModal>>;
+  onModalClose: React.Dispatch<React.SetStateAction<IModalConfig>>;
 }
 
 export interface IAddVehicle {
-  onModalOpen: React.Dispatch<React.SetStateAction<IModal>>;
+  onModalOpen: React.Dispatch<React.SetStateAction<IModalConfig>>;
 }
 
 export interface IVehiclesList {
@@ -33,5 +38,5 @@ export interface IVehiclesList {
 
 export interface IVehicleDescription {
   vehicle: IVehicle | undefined;
-  onEditClick: React.Dispatch<React.SetStateAction<IModal>>;
+  onEditClick: React.Dispatch<React.SetStateAction<IModalConfig>>;
 }

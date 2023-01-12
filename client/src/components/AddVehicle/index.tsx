@@ -9,13 +9,7 @@ function AddVehicle({ onModalOpen }: IAddVehicle) {
       <div className="add-vehicle">
         <h2>VEHICLE</h2>
         <ReactSVG
-          onClick={() =>
-            onModalOpen((prev) => ({
-              ...prev,
-              title: "New Vehicle",
-              isOpen: !prev.isOpen,
-            }))
-          }
+          onClick={() => onModalOpen({ isOpen: true, vehicleId: "" })}
           src={AddIcon}
           className="add-vehicle__icon"
         />
