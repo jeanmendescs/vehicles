@@ -221,8 +221,10 @@ body {
   }
 
   &__sold {
-    display: flex;
-    gap: 10px;
+    .ant-form-item-control-input-content {
+      display: flex;
+      gap: 10px;
+    }
   }
 
   &__spacing {

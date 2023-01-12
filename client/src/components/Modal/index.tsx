@@ -16,7 +16,7 @@ import { IModal, IVehicle } from "../../types/interfaces";
 import initialModalConfigState from "../../pages/Vehicles/initialVehicleState";
 import initialState from "./initialState";
 
-function Modal({ vehicleId, onModalClose }: IModal) {
+function Modal({ isOpen, vehicleId, onModalClose }: IModal) {
   const [messageApi, contextHolder] = message.useMessage();
   const [vehicle, setVehicle] = useState<IVehicle>(initialState);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,18 +28,17 @@ function Modal({ vehicleId, onModalClose }: IModal) {
       axios
         .get(`http://localhost:4000/vehicles/${vehicleId}`)
         .then(({ data }) => {
-          setIsLoading(false);
-          setVehicle(data);
           form.resetFields();
+          setVehicle(data);
         })
         .catch((err) => {
-          setIsLoading(false);
           messageApi.open({
             content: err.message,
             type: "error",
             className: "modal__message",
           });
-        });
+        })
+        .finally(() => setIsLoading(false));
     }
   }, [form, messageApi, vehicleId]);
 
@@ -48,16 +47,10 @@ function Modal({ vehicleId, onModalClose }: IModal) {
   }, [onModalClose]);
 
   const handleConfirmButton = useCallback(
-    (values) => {
+    (values: IVehicle) => {
       const baseURL = `http://localhost:4000/vehicles/${vehicleId}`;
       const method = vehicleId ? "PUT" : "POST";
-      const body = {
-        ...values,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        isSold: vehicle.isSold,
-      } as IVehicle;
-      axios({ method, baseURL, data: body })
+      axios({ method, baseURL, data: values })
         .then(() =>
           messageApi.open({
             content: vehicleId
@@ -75,23 +68,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
           }),
         );
     },
-    [messageApi, vehicle.isSold, vehicleId],
-  );
-
-  const handleInputChange = useCallback(
-    (
-      e:
-        | React.ChangeEvent<HTMLInputElement>
-        | React.ChangeEvent<HTMLTextAreaElement>,
-    ) => {
-      const { value, name } = e.target;
-
-      setVehicle((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    },
-    [],
+    [messageApi, vehicleId],
   );
 
   const handleSwitchChange = useCallback((isChecked: boolean, name: string) => {
@@ -105,7 +82,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
     <>
       {contextHolder}
       <Component
-        open
+        open={isOpen}
         title={vehicleId ? "Edit Vehicle" : "New Vehicle"}
         keyboard
         closable={false}
@@ -136,7 +113,6 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                   <Input
                     bordered={false}
                     className="modal__input"
-                    onChange={handleInputChange}
                     name="vehicle"
                     autoComplete="off"
                   />
@@ -150,7 +126,6 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                   className="modal__input-title"
                 >
                   <Input
-                    onChange={handleInputChange}
                     name="brand"
                     bordered={false}
                     className="modal__input"
@@ -176,7 +151,6 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                   className="modal__input-title"
                 >
                   <Input
-                    onChange={handleInputChange}
                     name="year"
                     bordered={false}
                     className="modal__input"
@@ -186,16 +160,16 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item name="teste" className="modal__input-title">
-                  <div className="modal__sold">
+                <Form.Item className="modal__sold">
+                  <Form.Item name="isSold" noStyle>
                     <Switch
                       onChange={(isChecked) =>
                         handleSwitchChange(isChecked, "isSold")
                       }
                       checked={vehicle.isSold}
                     />
-                    <h4>{vehicle.isSold ? "Sold" : "On Sale"}</h4>
-                  </div>
+                  </Form.Item>
+                  <h4>{vehicle.isSold ? "Sold" : "On Sale"}</h4>
                 </Form.Item>
               </Col>
             </Row>
@@ -212,7 +186,6 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                   <Input.TextArea
                     className="modal__input"
                     bordered={false}
-                    onChange={handleInputChange}
                     name="description"
                     rows={3}
                     autoComplete="off"
@@ -228,7 +201,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                   className="button button--large"
                   htmlType="submit"
                 >
-                  {vehicleId ? "Edit" : "Add"}
+                  {vehicleId ? "Save" : "Add"}
                 </Button>
               </Form.Item>
               <Form.Item noStyle>

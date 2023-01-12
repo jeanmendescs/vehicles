@@ -22,6 +22,7 @@ export interface IModalConfig {
 }
 
 export interface IModal {
+  isOpen: boolean;
   vehicleId: string;
   onModalClose: React.Dispatch<React.SetStateAction<IModalConfig>>;
 }

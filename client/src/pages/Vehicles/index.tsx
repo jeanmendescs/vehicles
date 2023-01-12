@@ -59,6 +59,7 @@ function Vehicles() {
       </div>
       {modalConfig.isOpen && (
         <Modal
+          isOpen={modalConfig.isOpen}
           vehicleId={modalConfig.vehicleId}
           onModalClose={setModalConfig}
         />
