@@ -32,7 +32,6 @@ function Vehicles() {
       .get("http://localhost:4000/vehicles", {
         params: {
           search,
-          // fields: ["id", "vehicles"] TODO,
         },
       })
       .then(({ data }) => setVehicles(data))
@@ -44,15 +43,15 @@ function Vehicles() {
       <Header onSearch={setSearch} />
       <div className="vehicles">
         <AddVehicle onModalOpen={setModalConfig} />
-        <Row gutter={30}>
-          <Col span={12}>
+        <Row gutter={[30, 30]}>
+          <Col className="order" xs={24} sm={12}>
             <VehiclesList
               onVehicleSelect={setSelectedVehicleId}
               list={vehicles}
             />
           </Col>
           {!!selectedVehicleId && (
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <VehicleDescription
                 vehicle={getVehicle()}
                 onEditClick={setModalConfig}

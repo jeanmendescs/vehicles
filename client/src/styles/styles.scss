@@ -95,6 +95,8 @@ body {
 
 .vehicles {
   padding: 40px 30px;
+  max-width: 1300px;
+  margin: 0 auto;
 
   .ant-card-bordered {
     border-color: $background-color-grey-1;
@@ -249,5 +251,16 @@ body {
         font-size: 24px;
       }
     }
+  }
+}
+
+.list {
+  overflow-y: auto;
+  max-height: 75vh;
+}
+
+@media screen and (max-width: 576px) {
+  .order {
+    order: 1;
   }
 }

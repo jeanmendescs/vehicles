@@ -45,7 +45,7 @@ function VehicleDescription({ vehicle, onEditClick }: IVehicleDescription) {
               }))
             }
           >
-            EDIT
+            Edit
           </Button>
           <ReactSVG src={TagIcon} alt="Tag Icon" />
         </div>
