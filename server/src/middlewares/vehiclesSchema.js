@@ -10,10 +10,6 @@ yup.addMethod(yup.string, "mongoDBId", function (errorMessage) {
   });
 });
 
-const validateDateFormat = yup.string("required field").test((dateString) => {
-  return new Date(dateString).toString() !== "Invalid Date";
-});
-
 const getAll = yup.object({
   query: yup.object({
     pageSize: yup.number().min(0).optional(),
@@ -36,8 +32,6 @@ const patch = yup.object({
       year: yup.number().optional(),
       description: yup.string().optional(),
       isSold: yup.boolean().optional(),
-      createdAt: yup.string().optional(),
-      updatedAt: yup.string().optional(),
     })
     .noUnknown()
     .strict(),
@@ -54,8 +48,6 @@ const post = yup.object({
       year: yup.number().required(),
       description: yup.string().required(),
       isSold: yup.boolean().required(),
-      createdAt: yup.string().required(),
-      updatedAt: yup.string().required(),
     })
     .noUnknown()
     .strict(),
@@ -69,8 +61,6 @@ const put = yup.object({
       year: yup.number().required(),
       description: yup.string().required(),
       isSold: yup.boolean().required(),
-      createdAt: yup.string().required(),
-      updatedAt: yup.string().required(),
     })
     .noUnknown()
     .strict(),

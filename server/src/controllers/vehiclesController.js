@@ -1,8 +1,14 @@
 const vehiclesModel = require("../models/vehiclesModel");
+const { getById: getVehicleById } = require("../models/vehiclesModel");
 
 const create = async (req, res) => {
   const vehicle = req.body;
-  const body = await vehiclesModel.create(vehicle);
+  const createdAt = new Date().toISOString();
+  const body = await vehiclesModel.create({
+    ...vehicle,
+    createdAt,
+    updatedAt: "",
+  });
 
   return res.json(body);
 };
@@ -36,8 +42,12 @@ const remove = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const newVehicle = req.body;
+  const vehicle = req.body;
   const { id } = req.params;
+  const { createdAt } = await getVehicleById(id);
+  const updatedAt = new Date().toISOString();
+  const newVehicle = { ...vehicle, createdAt, updatedAt };
+
   const body = await vehiclesModel.update({ newVehicle, id });
 
   return res.json(body);
