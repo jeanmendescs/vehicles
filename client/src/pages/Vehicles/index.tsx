@@ -24,6 +24,10 @@ function Vehicles() {
   };
 
   useEffect(() => {
+    if (modalConfig.isOpen) {
+      return;
+    }
+
     axios
       .get("http://localhost:4000/vehicles", {
         params: {
@@ -33,7 +37,7 @@ function Vehicles() {
       })
       .then(({ data }) => setVehicles(data))
       .catch((err) => console.log(err));
-  }, [search]);
+  }, [search, modalConfig.isOpen]);
 
   return (
     <>

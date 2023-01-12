@@ -51,15 +51,16 @@ function Modal({ isOpen, vehicleId, onModalClose }: IModal) {
       const baseURL = `http://localhost:4000/vehicles/${vehicleId}`;
       const method = vehicleId ? "PUT" : "POST";
       axios({ method, baseURL, data: values })
-        .then(() =>
+        .then(() => {
           messageApi.open({
             content: vehicleId
               ? "Vehicle edited successfully"
               : "Vehicle created successfully",
             type: "success",
             className: "modal__message",
-          }),
-        )
+          });
+          setTimeout(() => handleCloseModal(), 1000);
+        })
         .catch((err) =>
           messageApi.open({
             content: err.message,
@@ -68,7 +69,7 @@ function Modal({ isOpen, vehicleId, onModalClose }: IModal) {
           }),
         );
     },
-    [messageApi, vehicleId],
+    [handleCloseModal, messageApi, vehicleId],
   );
 
   const handleSwitchChange = useCallback((isChecked: boolean, name: string) => {
