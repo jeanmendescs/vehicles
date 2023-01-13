@@ -6,7 +6,7 @@ function VehiclesList({ list, onVehicleSelect }: IVehiclesList) {
     <>
       <h3>Vehicles list</h3>
       <div className="list">
-        {list.map((vehicle) => {
+        {list?.map((vehicle) => {
           return (
             <VehicleCard
               key={vehicle._id}

@@ -18,16 +18,10 @@ function VehicleCard({
       className={
         isActive ? "vehicles__card vehicles__card--is-ative" : "vehicles__card"
       }
+      data-testId={`vehicle-card-${id}`}
       hoverable
       bordered
-      onClick={() =>
-        onVehicleSelect((prev) => {
-          if (prev === id) {
-            return "";
-          }
-          return id;
-        })
-      }
+      onClick={() => onVehicleSelect(id)}
     >
       <div className="vehicles__card__content">
         <div>
