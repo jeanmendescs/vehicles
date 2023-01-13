@@ -37,13 +37,7 @@ function VehicleDescription({ vehicle, onEditClick }: IVehicleDescription) {
             }
             size="large"
             className="button"
-            onClick={() =>
-              onEditClick((prev) => ({
-                ...prev,
-                vehicleId: vehicle._id,
-                isOpen: true,
-              }))
-            }
+            onClick={() => onEditClick(vehicle._id)}
           >
             Edit
           </Button>

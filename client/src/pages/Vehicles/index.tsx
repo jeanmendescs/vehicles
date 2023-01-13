@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import AddVehicle from "../../components/AddVehicle";
 import Header from "../../components/Header";
@@ -15,6 +15,14 @@ function Vehicles() {
   const [selectedVehicleId, setSelectedVehicleId] = useState("");
   const [search, setSearch] = useState("");
   const [modalConfig, setModalConfig] = useState(initialModalConfigState);
+
+  const handleEditClick = useCallback((_id: string) => {
+    return setModalConfig({ vehicleId: _id, isOpen: true });
+  }, []);
+
+  const handleVehicleSelectClick = useCallback((_id: string) => {
+    return setSelectedVehicleId(_id);
+  }, []);
 
   const getVehicle = () => {
     if (!selectedVehicleId) {
@@ -46,7 +54,7 @@ function Vehicles() {
         <Row gutter={[30, 30]}>
           <Col className="order" xs={24} sm={12}>
             <VehiclesList
-              onVehicleSelect={setSelectedVehicleId}
+              onVehicleSelect={handleVehicleSelectClick}
               list={vehicles}
             />
           </Col>
@@ -54,7 +62,7 @@ function Vehicles() {
             <Col xs={24} sm={12}>
               <VehicleDescription
                 vehicle={getVehicle()}
-                onEditClick={setModalConfig}
+                onEditClick={handleEditClick}
               />
             </Col>
           )}
@@ -62,7 +70,6 @@ function Vehicles() {
       </div>
       {modalConfig.isOpen && (
         <Modal
-          isOpen={modalConfig.isOpen}
           vehicleId={modalConfig.vehicleId}
           onModalClose={setModalConfig}
         />

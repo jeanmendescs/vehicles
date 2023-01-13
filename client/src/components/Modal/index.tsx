@@ -10,24 +10,25 @@ import {
   message,
 } from "antd";
 
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { IModal, IVehicle } from "../../types/interfaces";
 import initialModalConfigState from "../../pages/Vehicles/initialVehicleState";
 import initialState from "./initialState";
 
-function Modal({ isOpen, vehicleId, onModalClose }: IModal) {
+function Modal({ vehicleId, onModalClose }: IModal) {
   const [messageApi, contextHolder] = message.useMessage();
   const [vehicle, setVehicle] = useState<IVehicle>(initialState);
   const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
   const handleCloseModal = useCallback(() => {
+    form.resetFields();
     onModalClose(initialModalConfigState);
-  }, [onModalClose]);
+  }, [form, onModalClose]);
 
   useEffect(() => {
-    if (!vehicleId && !isOpen) {
+    if (!vehicleId) {
       return;
     }
 
@@ -47,7 +48,7 @@ function Modal({ isOpen, vehicleId, onModalClose }: IModal) {
         });
       })
       .finally(() => setIsLoading(false));
-  }, [form, handleCloseModal, isOpen, messageApi, vehicleId]);
+  }, [form, handleCloseModal, messageApi, vehicleId]);
 
   const handleConfirmButton = useCallback(
     (values: IVehicle) => {
@@ -86,7 +87,7 @@ function Modal({ isOpen, vehicleId, onModalClose }: IModal) {
     <>
       {contextHolder}
       <Component
-        open={isOpen}
+        open
         title={vehicleId ? "Edit Vehicle" : "New Vehicle"}
         keyboard
         closable={false}

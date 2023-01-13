@@ -13,7 +13,7 @@ export interface ICard
   extends Pick<IVehicle, "brand" | "year" | "vehicle" | "isSold"> {
   id: string;
   isActive: boolean;
-  onVehicleSelect: React.Dispatch<React.SetStateAction<string>>;
+  onVehicleSelect: (_id: string) => void;
 }
 
 export interface IModalConfig {
@@ -22,7 +22,6 @@ export interface IModalConfig {
 }
 
 export interface IModal {
-  isOpen: boolean;
   vehicleId: string;
   onModalClose: React.Dispatch<React.SetStateAction<IModalConfig>>;
 }
@@ -33,10 +32,10 @@ export interface IAddVehicle {
 
 export interface IVehiclesList {
   list: IVehicle[];
-  onVehicleSelect: React.Dispatch<React.SetStateAction<string>>;
+  onVehicleSelect: (_id: string) => void;
 }
 
 export interface IVehicleDescription {
   vehicle: IVehicle | undefined;
-  onEditClick: React.Dispatch<React.SetStateAction<IModalConfig>>;
+  onEditClick: (_id: string) => void;
 }
