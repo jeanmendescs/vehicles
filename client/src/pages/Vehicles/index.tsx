@@ -2,7 +2,7 @@ import { Col, Row } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
-import AddVehicle from "../../components/AddVehicle";
+import SubHeader from "../../components/SubHeader";
 import Header from "../../components/Header";
 import Modal from "../../components/Modal";
 import VehicleDescription from "../../components/VehicleDescription";
@@ -50,7 +50,7 @@ function Vehicles() {
     <>
       <Header onSearch={setSearch} />
       <div className="vehicles">
-        <AddVehicle onModalOpen={setModalConfig} />
+        <SubHeader onModalOpen={setModalConfig} />
         <Row gutter={[30, 30]}>
           <Col className="order" xs={24} sm={12}>
             <VehiclesList

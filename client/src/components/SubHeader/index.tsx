@@ -3,7 +3,7 @@ import { ReactSVG } from "react-svg";
 import AddIcon from "../../assets/icons/add.svg";
 import { IAddVehicle } from "../../types/interfaces";
 
-function AddVehicle({ onModalOpen }: IAddVehicle) {
+function SubHeader({ onModalOpen }: IAddVehicle) {
   return (
     <div>
       <div className="add-vehicle">
@@ -12,6 +12,7 @@ function AddVehicle({ onModalOpen }: IAddVehicle) {
           onClick={() => onModalOpen({ isOpen: true, vehicleId: "" })}
           src={AddIcon}
           className="add-vehicle__icon"
+          data-testid="addButton"
         />
       </div>
       <Divider orientation="center" />
@@ -19,4 +20,4 @@ function AddVehicle({ onModalOpen }: IAddVehicle) {
   );
 }
 
-export default AddVehicle;
+export default SubHeader;
