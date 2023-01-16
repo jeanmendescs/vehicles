@@ -18,7 +18,7 @@ function VehicleCard({
       className={
         isActive ? "vehicles__card vehicles__card--is-ative" : "vehicles__card"
       }
-      data-testId={`vehicle-card-${id}`}
+      data-testid={`vehicle-card-${id}`}
       hoverable
       bordered
       onClick={() => onVehicleSelect(id)}

@@ -23,9 +23,8 @@ function Modal({ vehicleId, onModalClose }: IModal) {
   const [form] = Form.useForm();
 
   const handleCloseModal = useCallback(() => {
-    form.resetFields();
     onModalClose(initialModalConfigState);
-  }, [form, onModalClose]);
+  }, [onModalClose]);
 
   useEffect(() => {
     if (!vehicleId) {
@@ -172,6 +171,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                         handleSwitchChange(isChecked, "isSold")
                       }
                       checked={vehicle.isSold}
+                      data-testid="isSold"
                     />
                   </Form.Item>
                   <h4>{vehicle.isSold ? "Sold" : "On Sale"}</h4>
