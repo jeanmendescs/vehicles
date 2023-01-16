@@ -26,6 +26,7 @@ function Header({ onSearch }: IHeader) {
             onChange={(e) => onSearch(e.target.value)}
             placeholder="SEARCH for a vehicle"
             className="search-column__search"
+            data-testid="header-input"
           />
         </Col>
       </Row>
