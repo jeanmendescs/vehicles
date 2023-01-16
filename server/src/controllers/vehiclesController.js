@@ -42,15 +42,20 @@ const remove = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const vehicle = req.body;
+  const { body } = req;
   const { id } = req.params;
-  const { createdAt } = await getVehicleById(id);
+  const vehicle = await getVehicleById(id);
+
+  if (!vehicle) {
+    return res.status(404).send();
+  }
+
   const updatedAt = new Date().toISOString();
-  const newVehicle = { ...vehicle, createdAt, updatedAt };
+  const newVehicle = { ...vehicle, ...body, updatedAt };
 
-  const body = await vehiclesModel.update({ newVehicle, id });
+  await vehiclesModel.update({ newVehicle, id });
 
-  return res.json(body);
+  return res.json({ id });
 };
 
 module.exports = {
