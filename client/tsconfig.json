@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noImplicitAny": false,
-    "baseUrl": "http://localhost:3000/vehicles"
+    "baseUrl": "src"
   },
   "include": ["src"]
 }
