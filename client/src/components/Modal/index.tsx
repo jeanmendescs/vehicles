@@ -103,6 +103,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
             layout="vertical"
             onFinish={handleConfirmButton}
             initialValues={vehicle}
+            data-testid="form"
           >
             <Row gutter={40} className="modal__spacing">
               <Col span={12}>
@@ -119,6 +120,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                     className="modal__input"
                     name="vehicle"
                     autoComplete="off"
+                    data-testid="form-vehicle"
                   />
                 </Form.Item>
               </Col>
@@ -134,6 +136,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                     bordered={false}
                     className="modal__input"
                     autoComplete="off"
+                    data-testid="form-brand"
                   />
                 </Form.Item>
               </Col>
@@ -160,6 +163,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                     className="modal__input"
                     autoComplete="off"
                     type="number"
+                    data-testid="form-year"
                   />
                 </Form.Item>
               </Col>
@@ -194,6 +198,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                     name="description"
                     rows={3}
                     autoComplete="off"
+                    data-testid="form-description"
                   />
                 </Form.Item>
               </Col>
@@ -205,6 +210,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                   size="large"
                   className="button button--large"
                   htmlType="submit"
+                  data-testid="form-submit-button"
                 >
                   {vehicleId ? "Save" : "Add"}
                 </Button>
@@ -214,6 +220,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                   size="large"
                   className="button button--large"
                   onClick={handleCloseModal}
+                  data-testid="form-close-buttonr"
                 >
                   Close
                 </Button>
