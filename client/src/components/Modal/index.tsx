@@ -175,7 +175,7 @@ function Modal({ vehicleId, onModalClose }: IModal) {
                         handleSwitchChange(isChecked, "isSold")
                       }
                       checked={vehicle.isSold}
-                      data-testid="isSold"
+                      data-testid="form-is-sold"
                     />
                   </Form.Item>
                   <h4>{vehicle.isSold ? "Sold" : "On Sale"}</h4>

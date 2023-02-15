@@ -19,7 +19,7 @@ describe("Modal", () => {
     const yearInput = await screen.findByRole("spinbutton", {
       name: /year/i,
     });
-    const switchInput = await screen.findByTestId("isSold");
+    const switchInput = await screen.findByTestId("form-is-sold");
     const descriptionInput = await screen.findByRole("textbox", {
       name: /description/i,
     });
@@ -43,7 +43,7 @@ describe("Modal", () => {
     const yearInput = await screen.findByRole("spinbutton", {
       name: /year/i,
     });
-    const switchInput = await screen.findByTestId("isSold");
+    const switchInput = await screen.findByTestId("form-is-sold");
     const descriptionInput = await screen.findByRole("textbox", {
       name: /description/i,
     });
@@ -122,7 +122,7 @@ describe("Modal", () => {
     const yearInput = await screen.findByRole("spinbutton", {
       name: /year/i,
     });
-    const switchInput = await screen.findByTestId("isSold");
+    const switchInput = await screen.findByTestId("form-is-sold");
     const descriptionInput = await screen.findByRole("textbox", {
       name: /description/i,
     });
