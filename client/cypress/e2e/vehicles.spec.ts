@@ -12,16 +12,7 @@ describe("Vehicles", () => {
       cy.delete();
     });
 
-    console.log("started");
-    // const vehicle = getVehicle("create");
-
-    const vehicle = {
-      brand: "Volkswagen",
-      vehicle: "Voyage",
-      year: 1988,
-      description: "A nice car",
-      isSold: false,
-    },
+    const vehicle = getVehicle("create");
 
     cy.intercept("POST", "http://localhost:4000/vehicles").as("post");
 
@@ -53,12 +44,11 @@ describe("Vehicles", () => {
     });
   });
 
-  it.skip("should edit a vehicle", () => {
+  it("should edit a vehicle", () => {
     cy.on("fail", () => {
       cy.delete();
     });
 
-    console.log("started 2");
     const vehicle = getVehicle("edit");
 
     cy.request({
@@ -102,9 +92,8 @@ describe("Vehicles", () => {
     cy.contains("Vehicle edited successfully").should("be.visible");
   });
 
-  it.skip("should list a searched vehicle", () => {
-    cy.on("fail", (err) => {
-      console.log(err);
+  it("should list a searched vehicle", () => {
+    cy.on("fail", () => {
       cy.delete();
     });
 
@@ -124,6 +113,6 @@ describe("Vehicles", () => {
 
     cy.get("[data-testid='header-input']").type(vehicle.vehicle);
 
-    cy.contains(vehicle.vehicle).should("be.visible").click();
+    cy.contains(vehicle.vehicle).should("be.visible");
   });
 });
