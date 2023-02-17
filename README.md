@@ -1,6 +1,6 @@
 ## Vehicles
 
-> This application aims to list vehiclies. It is possible to create and update a register. Both client and server are provided in the application.
+> This application aims to list vehicles. It is possible to create and update a register. Both client and server are provided in the application.
 
 ## Content Table
 
@@ -15,7 +15,7 @@
 
 ## Content
 
-This application aims to list vehiclies. The client side was built with React and the server side was built with Node.Js and Express. Also, it was tested with React Testing Library (unit test) and Cypress (E2E test). The application database is MongoDB.
+This application aims to list vehicles. The client side was built with React and the server side was built with Node.Js and Express. Also, it was tested with React Testing Library (unit test) and Cypress (E2E test). The application database is MongoDB.
 
 ## Screenshots
 
