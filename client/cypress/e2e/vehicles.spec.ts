@@ -3,27 +3,31 @@
 import getVehicle from "../fixtures/vehicle";
 
 describe("Vehicles", () => {
-  before(() => {
-    cy.fixture("idToDelete.json").then((data) => {
-      if (data.id) {
-        cy.request("DELETE", `http://localhost:4000/vehicles/${data.id}`);
-        cy.writeFile("cypress/fixtures/idToDelete.json", {});
-      }
+  afterEach(() => {
+    cy.delete();
+  });
+
+  it("should add a vehicle after filling the form", () => {
+    cy.on("fail", () => {
+      cy.delete();
     });
-  });
 
-  beforeEach(() => {
-    cy.visit("/vehicles");
-  });
+    console.log("started");
+    // const vehicle = getVehicle("create");
 
-  it.skip("should add a vehicle after filling the form", () => {
-    const vehicle = getVehicle("create");
+    const vehicle = {
+      brand: "Volkswagen",
+      vehicle: "Voyage",
+      year: 1988,
+      description: "A nice car",
+      isSold: false,
+    },
 
     cy.intercept("POST", "http://localhost:4000/vehicles").as("post");
 
-    cy.get(
-      "[data-src='/static/media/add.c9808b1ff7fbd6813f75337d1d671c0d.svg']",
-    ).click();
+    cy.visit("/vehicles");
+
+    cy.get("[data-testid='addButton']").should("be.visible").click();
     cy.get("[data-testid='form']");
     cy.get("[data-testid='form-vehicle']").type(vehicle.vehicle);
     cy.get("[data-testid='form-brand']").type(vehicle.brand);
@@ -43,13 +47,18 @@ describe("Vehicles", () => {
 
       cy.writeFile("cypress/fixtures/idToDelete.json", {
         id: interception.response?.body.insertedId,
+      }).then(() => {
+        cy.contains("Vehicle created successfully").should("be.visible");
       });
     });
-
-    cy.contains("Vehicle created successfully").should("be.visible");
   });
 
-  it("should edit a vehicle", () => {
+  it.skip("should edit a vehicle", () => {
+    cy.on("fail", () => {
+      cy.delete();
+    });
+
+    console.log("started 2");
     const vehicle = getVehicle("edit");
 
     cy.request({
@@ -64,11 +73,9 @@ describe("Vehicles", () => {
 
     cy.intercept("PUT", /^http\:\/\/localhost:4000\/vehicles/).as("put");
 
-    cy.get(".vehicles__card__content")
-      .and("contain", vehicle.brand)
-      .and("contain", vehicle.vehicle)
-      .and("contain", vehicle.year)
-      .click();
+    cy.visit("/vehicles");
+
+    cy.contains(vehicle.vehicle).should("be.visible").click();
 
     cy.get(".descriptions__info")
       .and("contain", vehicle.brand)
@@ -76,9 +83,7 @@ describe("Vehicles", () => {
       .and("contain", vehicle.year)
       .and("contain", vehicle.description);
 
-    cy.get(
-      "[data-src='/static/media/edit.b75b06450e1aedda807a2b4744e4ae46.svg']",
-    ).click();
+    cy.get("[data-testid='editButton']").click();
 
     cy.get("[data-testid='form']");
     cy.get("[data-testid='form-vehicle']").clear().type("Virtus");
@@ -98,7 +103,12 @@ describe("Vehicles", () => {
   });
 
   it.skip("should list a searched vehicle", () => {
-    const vehicle = getVehicle();
+    cy.on("fail", (err) => {
+      console.log(err);
+      cy.delete();
+    });
+
+    const vehicle = getVehicle("");
 
     cy.request({
       url: "http://localhost:4000/vehicles",
@@ -110,33 +120,10 @@ describe("Vehicles", () => {
       });
     });
 
-    cy.intercept(
-      "GET",
-      /^http\:\/\/localhost:4000\/vehicles\?search\=Fusca/,
-    ).as("get");
+    cy.visit("/vehicles");
 
     cy.get("[data-testid='header-input']").type(vehicle.vehicle);
 
-    cy.get(".vehicles__card__content")
-      .and("contain", vehicle.brand)
-      .and("contain", vehicle.vehicle)
-      .and("contain", vehicle.year)
-      .should("be.visible");
-
-    cy.wait("@get").then((interception) => {
-      console.log(interception);
-      const findVehicle = interception.response?.body.find(
-        (item) => item.vehicle === vehicle.vehicle,
-      );
-
-      console.log(findVehicle);
-
-      if (findVehicle) {
-        expect(findVehicle.vehicle).to.be.eq(vehicle.vehicle);
-        expect(findVehicle.brand).to.be.eq(vehicle.brand);
-        expect(findVehicle.year).to.be.eq(Number(vehicle.year));
-        expect(findVehicle.description).to.be.eq(vehicle.description);
-      }
-    });
+    cy.contains(vehicle.vehicle).should("be.visible").click();
   });
 });

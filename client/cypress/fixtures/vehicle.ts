@@ -22,7 +22,7 @@ const vehicles = [
   },
 ];
 
-export default function getVehicle(type) {
+export default function getVehicle(type: string) {
   switch (type) {
     case "create":
       return vehicles[0];

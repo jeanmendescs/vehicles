@@ -38,6 +38,7 @@ function VehicleDescription({ vehicle, onEditClick }: IVehicleDescription) {
             size="large"
             className="button"
             onClick={() => onEditClick(vehicle._id)}
+            data-testid="editButton"
           >
             Edit
           </Button>

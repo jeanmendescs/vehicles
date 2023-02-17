@@ -11,7 +11,20 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+
+Cypress.Commands.add("delete", () => {
+  cy.readFile("cypress/fixtures/idToDelete.json").then((data) => {
+    if (data.id) {
+      cy.request("DELETE", `http://localhost:4000/vehicles/${data.id}`).then(
+        () => {
+          cy.writeFile("cypress/fixtures/idToDelete.json", {}).then(() => {
+            console.log("deleted");
+          });
+        },
+      );
+    }
+  });
+});
 //
 //
 // -- This is a child command --
@@ -25,13 +38,3 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
