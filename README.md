@@ -15,7 +15,7 @@
 
 ## Content
 
-This application aims to list vehiclies. The client side was built with React and the server side was built with Node.Js and Express. The application database is MongoDB.
+This application aims to list vehiclies. The client side was built with React and the server side was built with Node.Js and Express. Also, it was tested with React Testing Library (unit test) and Cypress (E2E test). The application database is MongoDB.
 
 ## Screenshots
 
@@ -29,6 +29,8 @@ This application aims to list vehiclies. The client side was built with React an
 - NodeJs
 - Express
 - MongoDB
+- React Testing Library
+- Cypress
 
 ## Setup
 
